@@ -460,6 +460,34 @@
     <a class="nav-item" href="#offer-update"><span class="method-badge PUT">PUT</span>Update Offer</a>
     <a class="nav-item" href="#offer-delete"><span class="method-badge DELETE">DELETE</span>Delete Offer</a>
   </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Order</div>
+    <a class="nav-item" href="#order-byprovider"><span class="method-badge GET">GET</span>By Provider ID</a>
+    <a class="nav-item" href="#order-bycustomer"><span class="method-badge GET">GET</span>By Customer ID</a>
+    <a class="nav-item" href="#order-create"><span class="method-badge POST">POST</span>Create Order</a>
+    <a class="nav-item" href="#order-delete"><span class="method-badge DELETE">DELETE</span>Delete Order</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Escrow Payment</div>
+    <a class="nav-item" href="#escrow-accept"><span class="method-badge POST">POST</span>Accept Order</a>
+    <a class="nav-item" href="#escrow-cancel"><span class="method-badge PUT">PUT</span>Cancel Order</a>
+    <a class="nav-item" href="#escrow-status"><span class="method-badge PUT">PUT</span>Change Work Status</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Wallet</div>
+    <a class="nav-item" href="#wallet-get"><span class="method-badge GET">GET</span>Get Wallet</a>
+    <a class="nav-item" href="#wallet-charge"><span class="method-badge PUT">PUT</span>Charge Wallet</a>
+    <a class="nav-item" href="#wallet-callback"><span class="method-badge POST">POST</span>Paymob Callback</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Notification</div>
+    <a class="nav-item" href="#notif-get"><span class="method-badge GET">GET</span>Get Notifications</a>
+    <a class="nav-item" href="#notif-read"><span class="method-badge PUT">PUT</span>Mark As Read</a>
+  </div>
 </nav>
 
 <!-- Main -->
@@ -519,7 +547,7 @@
           <div class="code-block">{
   <span class="json-key">"id"</span>: <span class="json-str">"user-guid"</span>,
   <span class="json-key">"username"</span>: <span class="json-str">"yousef123"</span>,
-  <span class="json-key">"email"</span>: <span class="json-str">"yousef@example.com"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3daccd6d0c6c5e3c6dbc2ced3cfc68dc0ccce">[email&#160;protected]</a>"</span>,
   <span class="json-key">"roles"</span>: [<span class="json-str">"Customer"</span>],
   <span class="json-key">"token"</span>: <span class="json-str">"eyJhbGci..."</span>,
   <span class="json-key">"refreshTokenExpiration"</span>: <span class="json-str">"2026-04-06T12:00:00"</span>,
@@ -561,7 +589,7 @@
           <div class="code-block">{
   <span class="json-key">"name"</span>: <span class="json-str">"Yousef Ahmed"</span>,
   <span class="json-key">"userName"</span>: <span class="json-str">"yousef123"</span>,
-  <span class="json-key">"email"</span>: <span class="json-str">"yousef@example.com"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc8593898f999abc99849d918c9099d29f9391">[email&#160;protected]</a>"</span>,
   <span class="json-key">"password"</span>: <span class="json-str">"Pass1234"</span>,
   <span class="json-key">"phone"</span>: <span class="json-str">"01012345678"</span>,
   <span class="json-key">"role"</span>: <span class="json-num">0</span>,
@@ -707,7 +735,7 @@
         <div class="tab-content active" id="reset-req">
           <div class="code-label">Body · application/json</div>
           <div class="code-block">{
-  <span class="json-key">"email"</span>: <span class="json-str">"yousef@example.com"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4e37213b3d2b280e2b362f233e222b602d2123">[email&#160;protected]</a>"</span>,
   <span class="json-key">"token"</span>: <span class="json-str">"Q2ZESjhKa..."</span>,
   <span class="json-key">"newPassword"</span>: <span class="json-str">"NewPass1234"</span>
 }</div>
@@ -882,7 +910,7 @@
           <div class="code-block">{
   <span class="json-key">"name"</span>: <span class="json-str">"Yousef Ahmed"</span>,
   <span class="json-key">"userName"</span>: <span class="json-str">"yousef_updated"</span>,
-  <span class="json-key">"email"</span>: <span class="json-str">"new@example.com"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d63687a4d68756c607d6168236e6260">[email&#160;protected]</a>"</span>,
   <span class="json-key">"phone"</span>: <span class="json-str">"01099887766"</span>,
   <span class="json-key">"latitude"</span>: <span class="json-num">30.0444</span>,
   <span class="json-key">"longitude"</span>: <span class="json-num">31.2357</span>,
@@ -1366,6 +1394,579 @@
     </div>
   </section>
 
+  <!-- ─────────────────────── ORDER ─────────────────────── -->
+  <section class="section" id="order">
+    <div class="section-header">
+      <div class="section-icon">📦</div>
+      <div>
+        <div class="section-title">Order Controller</div>
+        <div class="section-desc">إنشاء وإدارة الطلبات المرتبطة بالعروض والمنشورات</div>
+      </div>
+    </div>
+
+    <!-- GetByProviderId -->
+    <div class="endpoint-card" id="order-byprovider">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/Order/ByProviderId/<span class="param">{providerId}</span></span>
+        <span class="endpoint-summary">جلب طلبات مزود الخدمة</span>
+        <span class="auth-badge">🔒 Provider</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع جميع الطلبات المرتبطة بمزود خدمة معين عبر الـ Provider ID. مخصص لحساب Provider فقط. النتائج تتضمن بيانات العرض المرتبط بكل طلب.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'orderprov-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'orderprov-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="orderprov-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">providerId</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Header</div>
+          <div class="code-block">Authorization: Bearer eyJhbGci...</div>
+        </div>
+        <div class="tab-content" id="orderprov-res">
+          <div class="code-label">200 OK — List&lt;OrderDTO&gt;</div>
+          <div class="code-block">[{
+  <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
+  <span class="json-key">"offerId"</span>: <span class="json-num">3</span>,
+  <span class="json-key">"totalAmount"</span>: <span class="json-num">500.00</span>,
+  <span class="json-key">"providerAmount"</span>: <span class="json-num">450.00</span>,
+  <span class="json-key">"platformCommission"</span>: <span class="json-num">50.00</span>,
+  <span class="json-key">"workStatus"</span>: <span class="json-str">"InProgress"</span>,
+  <span class="json-key">"paymentStatus"</span>: <span class="json-str">"Held"</span>,
+  <span class="json-key">"createdAt"</span>: <span class="json-str">"2026-03-27T10:00:00"</span>
+}]</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">قائمة الطلبات الخاصة بمزود الخدمة</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">لم يُعثر على طلبات لهذا المزود</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Provider</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GetByCustomerId -->
+    <div class="endpoint-card" id="order-bycustomer">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/Order/ByCustomerId/<span class="param">{CustomerId}</span></span>
+        <span class="endpoint-summary">جلب طلبات العميل</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع جميع الطلبات المرتبطة بعميل معين عبر الـ Customer ID. مخصص لحساب Customer فقط. النتائج تتضمن بيانات المنشور المرتبط بكل طلب.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ordercust-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'ordercust-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="ordercust-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">CustomerId</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">GET /Order/ByCustomerId/f3a1b2c4-...</div>
+        </div>
+        <div class="tab-content" id="ordercust-res">
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">قائمة الطلبات الخاصة بالعميل</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">لم يُعثر على طلبات لهذا العميل</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CreateOrder -->
+    <div class="endpoint-card" id="order-create">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">POST</span>
+        <span class="endpoint-path">/Order</span>
+        <span class="endpoint-summary">إنشاء طلب جديد</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُنشئ طلباً جديداً يربط منشور خدمة بعرض محدد. يُحدَّد التكلفة الإجمالية تلقائياً من سعر العرض. عند الإنشاء يُرسَل إشعار تلقائي لكلٍّ من العميل ومزود الخدمة. حالة العمل تبدأ بـ <strong>Pending</strong> وحالة الدفع بـ <strong>Pending</strong>. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ordercreate-req')">Request Body</button>
+          <button class="tab-btn" onclick="switchTab(this, 'ordercreate-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="ordercreate-req">
+          <div class="code-label">Body · application/json</div>
+          <div class="code-block">{
+  <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
+  <span class="json-key">"offerId"</span>: <span class="json-num">3</span>
+}</div>
+          <table style="margin-top:14px">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+            <tr><td class="param-name">jobPostId</td><td class="param-type">int</td><td class="required-badge">required</td><td>ID المنشور المرتبط</td></tr>
+            <tr><td class="param-name">offerId</td><td class="param-type">int</td><td class="required-badge">required</td><td>ID العرض المقبول</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="ordercreate-res">
+          <div class="code-label">200 OK — CreateOrderDTO</div>
+          <div class="code-block">{
+  <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
+  <span class="json-key">"offerId"</span>: <span class="json-num">3</span>
+}</div>
+          <div class="note"><strong>Side Effect:</strong> يتلقى كل من العميل ومزود الخدمة إشعاراً فورياً بإنشاء الطلب.</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الطلب أُنشئ بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">فشل في الإنشاء أو بيانات غير صحيحة</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DeleteOrder -->
+    <div class="endpoint-card" id="order-delete">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag DELETE">DELETE</span>
+        <span class="endpoint-path">/Order/<span class="param">{id}</span></span>
+        <span class="endpoint-summary">حذف ناعم لطلب</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُنفّذ Soft Delete بتعيين <code>IsDeleted = true</code>. الطلب لا يُحذف فعلياً من قاعدة البيانات. يُرسَل إشعار تلقائي للعميل ومزود الخدمة عند الحذف. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'orderdelete-req')">Parameters</button>
+        </div>
+        <div class="tab-content active" id="orderdelete-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">id</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="note"><strong>Side Effect:</strong> يُرسَل إشعار للعميل بالحذف ولمزود الخدمة باسم العميل.</div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الطلب حُذِف ناعماً</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الطلب غير موجود</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── ESCROW PAYMENT ─────────────────────── -->
+  <section class="section" id="escrow">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div>
+        <div class="section-title">EscrowPayment Controller</div>
+        <div class="section-desc">إدارة دورة حياة الدفع عبر Escrow — قبول، إلغاء، وتحديث حالة العمل</div>
+      </div>
+    </div>
+
+    <!-- AcceptOrder -->
+    <div class="endpoint-card" id="escrow-accept">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">POST</span>
+        <span class="endpoint-path">/EscrowPayment/AcceptOrder/<span class="param">{orderId}</span></span>
+        <span class="endpoint-summary">قبول الطلب وتحويل المبلغ للـ Escrow</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يقبل العميل الطلب ويُحوَّل المبلغ من محفظة العميل إلى محفظة المنصة (Escrow). عند النجاح تتغير حالة العمل إلى <strong>Accepted</strong> وحالة الدفع إلى <strong>Held</strong>. النقطة محمية بـ Idempotency Key لمنع التكرار. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'accept-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'accept-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="accept-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">orderId</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">Idempotency-Key</td><td>Header</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Headers</div>
+          <div class="code-block">Authorization: Bearer eyJhbGci...
+Idempotency-Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890</div>
+          <div class="note"><strong>Idempotency:</strong> أرسِل نفس الـ Key لضمان عدم تكرار عملية الدفع عند إعادة المحاولة.</div>
+        </div>
+        <div class="tab-content" id="accept-res">
+          <div class="code-label">200 OK — OrderDTO</div>
+          <div class="code-block">{
+  <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
+  <span class="json-key">"offerId"</span>: <span class="json-num">3</span>,
+  <span class="json-key">"totalAmount"</span>: <span class="json-num">500.00</span>,
+  <span class="json-key">"workStatus"</span>: <span class="json-str">"Accepted"</span>,
+  <span class="json-key">"paymentStatus"</span>: <span class="json-str">"Held"</span>
+}</div>
+          <div class="flow-box">
+            <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">يُحوَّل المبلغ من <strong>محفظة العميل</strong> → <strong>محفظة المنصة (Escrow)</strong></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">WorkStatus → <strong>Accepted</strong> · PaymentStatus → <strong>Held</strong></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">إشعار يُرسَل للعميل ولمزود الخدمة</div></div>
+          </div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الطلب قُبِل والمبلغ محجوز في Escrow</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الطلب غير موجود أو رصيد غير كافٍ</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CancelOrder -->
+    <div class="endpoint-card" id="escrow-cancel">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/EscrowPayment/CancelOrder/<span class="param">{orderId}</span></span>
+        <span class="endpoint-summary">إلغاء الطلب واسترداد المبلغ</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُلغي الطلب ويُعيد المبلغ المحجوز في Escrow إلى محفظة العميل. عند النجاح تتغير حالة العمل إلى <strong>Cancelled</strong> وحالة الدفع إلى <strong>Refunded</strong>. يُرسَل إشعار لكلٍّ من العميل والمزود. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'cancel-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'cancel-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="cancel-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">orderId</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="cancel-res">
+          <div class="flow-box">
+            <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">يُعاد المبلغ من <strong>Escrow</strong> → <strong>محفظة العميل</strong></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">WorkStatus → <strong>Cancelled</strong> · PaymentStatus → <strong>Refunded</strong></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">إشعار يُرسَل للعميل والمزود بالإلغاء</div></div>
+          </div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الطلب مُلغى والمبلغ استُرِد للعميل</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الطلب غير موجود أو فشل التحويل</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ChangeWorkOrderStatus -->
+    <div class="endpoint-card" id="escrow-status">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/EscrowPayment/ChangeWorkOrderStatus/<span class="param">{orderId}</span>/<span class="param">{newStatus}</span></span>
+        <span class="endpoint-summary">تحديث حالة العمل — وصرف المبلغ عند الاكتمال</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُحدّث حالة العمل للطلب. عند الوصول إلى حالة <strong>Completed</strong>، يُحوَّل المبلغ من Escrow إلى محفظة المزود تلقائياً بعد خصم عمولة المنصة (10%). حالات أخرى تُحدَّث دون تحويل مالي. يتلقى كل من العميل والمزود إشعاراً عند كل تغيير.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'wstatus-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'wstatus-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="wstatus-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">orderId</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">newStatus</td><td>Path</td><td class="param-type">WorkStatus (enum)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">WorkStatus Enum Values</div>
+          <div class="code-block">Pending = 1
+Accepted = 2
+InProgress = 3
+CompletedByProvider = 4
+Completed = 5
+RevisionRequested = 6
+Cancelled = 7</div>
+          <div class="code-label">Example</div>
+          <div class="code-block">PUT /EscrowPayment/ChangeWorkOrderStatus/12/5</div>
+        </div>
+        <div class="tab-content" id="wstatus-res">
+          <div class="code-label">200 OK — OrderDTO (مثال عند Completed)</div>
+          <div class="code-block">{
+  <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
+  <span class="json-key">"offerId"</span>: <span class="json-num">3</span>,
+  <span class="json-key">"totalAmount"</span>: <span class="json-num">500.00</span>,
+  <span class="json-key">"providerAmount"</span>: <span class="json-num">450.00</span>,
+  <span class="json-key">"platformCommission"</span>: <span class="json-num">50.00</span>,
+  <span class="json-key">"workStatus"</span>: <span class="json-str">"Completed"</span>,
+  <span class="json-key">"paymentStatus"</span>: <span class="json-str">"Paid"</span>
+}</div>
+          <div class="flow-box">
+            <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">عمولة المنصة = <strong>TotalAmount × 10%</strong></div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">يُحوَّل <strong>ProviderAmount</strong> من Escrow → محفظة المزود</div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">PaymentStatus → <strong>Paid</strong></div></div>
+          </div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">حالة العمل حُدِّثت بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الطلب غير موجود أو فشل تحويل المبلغ</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── WALLET ─────────────────────── -->
+  <section class="section" id="wallet">
+    <div class="section-header">
+      <div class="section-icon">👛</div>
+      <div>
+        <div class="section-title">Wallet Controller</div>
+        <div class="section-desc">إدارة المحفظة، شحن الرصيد عبر Paymob، ومعالجة callbacks الدفع</div>
+      </div>
+    </div>
+
+    <!-- GetWalletByUserId -->
+    <div class="endpoint-card" id="wallet-get">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/Wallet/Id</span>
+        <span class="endpoint-summary">جلب بيانات المحفظة بواسطة User ID</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع بيانات المحفظة الخاصة بالمستخدم بما فيها الرصيد الحالي ونوع المالك. يستلزم مصادقة JWT صالحة.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'walletget-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'walletget-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="walletget-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">Id</td><td>Query</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">GET /Wallet/Id?Id=f3a1b2c4-...</div>
+        </div>
+        <div class="tab-content" id="walletget-res">
+          <div class="code-label">200 OK — WalletDTO</div>
+          <div class="code-block">{
+  <span class="json-key">"id"</span>: <span class="json-num">7</span>,
+  <span class="json-key">"name"</span>: <span class="json-str">"Yousef Ahmed"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"yousef@example.com"</span>,
+  <span class="json-key">"balance"</span>: { <span class="json-key">"amount"</span>: <span class="json-num">1200.00</span>, <span class="json-key">"currency"</span>: <span class="json-str">"EGP"</span> },
+  <span class="json-key">"userId"</span>: <span class="json-str">"user-guid"</span>,
+  <span class="json-key">"ownerType"</span>: <span class="json-str">"Customer"</span>
+}</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">بيانات المحفظة</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">المحفظة غير موجودة لهذا المستخدم</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ChargeWallet -->
+    <div class="endpoint-card" id="wallet-charge">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/Wallet/<span class="param">{amount}</span>/<span class="param">{Customerid}</span></span>
+        <span class="endpoint-summary">شحن المحفظة عبر Paymob</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يبدأ عملية شحن المحفظة عبر بوابة Paymob. يُرجع رابط iframe لإتمام عملية الدفع بالبطاقة. عند نجاح الدفع، يُحدَّث الرصيد تلقائياً عبر Callback. المبلغ بالجنيه المصري.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'charge-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'charge-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="charge-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">amount</td><td>Path</td><td class="param-type">double</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">Customerid</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">PUT /Wallet/500/f3a1b2c4-...</div>
+          <div class="flow-box">
+            <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">مصادقة مع Paymob → الحصول على Auth Token</div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">إنشاء Order في Paymob</div></div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">الحصول على Payment Key → إنشاء رابط iframe</div></div>
+          </div>
+        </div>
+        <div class="tab-content" id="charge-res">
+          <div class="code-label">200 OK</div>
+          <div class="code-block">{
+  <span class="json-key">"iframeUrl"</span>: <span class="json-str">"https://accept.paymob.com/api/acceptance/iframes/897502?payment_token=..."</span>
+}</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">رابط iframe لإتمام الدفع بالبطاقة</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">فشل الاتصال بـ Paymob أو بيانات غير صحيحة</span></div>
+          </div>
+          <div class="note"><strong>Note:</strong> الرصيد لا يُحدَّث مباشرةً — يُحدَّث فقط بعد استلام Callback ناجح من Paymob.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PaymobCallback -->
+    <div class="endpoint-card" id="wallet-callback">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">POST</span>
+        <span class="endpoint-path">/Wallet/callback</span>
+        <span class="endpoint-summary">معالجة Paymob Callback وتحديث الرصيد</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          نقطة نهاية تُستدعى تلقائياً من Paymob عند إتمام عملية الدفع. تتحقق من صحة HMAC signature للتأكد من مصدر الطلب، ثم تُحدّث رصيد محفظة العميل وترسل إشعاراً بالشحن الناجح. هذه النقطة لا تتطلب مصادقة (AllowAnonymous) لأن Paymob هو المُستدعي.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'callback-req')">Request</button>
+          <button class="tab-btn" onclick="switchTab(this, 'callback-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="callback-req">
+          <div class="code-label">Query Parameter</div>
+          <div class="code-block">POST /Wallet/callback?hmac=&lt;HMAC_SIGNATURE&gt;</div>
+          <div class="code-label">Body · application/json (PaymobCallback)</div>
+          <div class="code-block">{
+  <span class="json-key">"type"</span>: <span class="json-str">"TRANSACTION"</span>,
+  <span class="json-key">"obj"</span>: {
+    <span class="json-key">"id"</span>: <span class="json-num">123456</span>,
+    <span class="json-key">"success"</span>: <span class="json-bool">true</span>,
+    <span class="json-key">"amount_cents"</span>: <span class="json-num">50000</span>,
+    <span class="json-key">"currency"</span>: <span class="json-str">"EGP"</span>,
+    <span class="json-key">"payment_key_claims"</span>: {
+      <span class="json-key">"billing_data"</span>: { <span class="json-key">"apartment"</span>: <span class="json-str">"user-guid"</span> }
+    }
+  }
+}</div>
+          <div class="note"><strong>Security:</strong> يُتحقق من HMAC باستخدام HMACSHA512. إذا لم يتطابق، يُرفض الطلب ويُسجَّل تحذير.</div>
+        </div>
+        <div class="tab-content" id="callback-res">
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الدفع ناجح — رصيد المحفظة حُدِّث وإشعار أُرسِل</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">فشل التحقق من HMAC أو فشل عملية الدفع</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── NOTIFICATION ─────────────────────── -->
+  <section class="section" id="notification">
+    <div class="section-header">
+      <div class="section-icon">🔔</div>
+      <div>
+        <div class="section-title">Notification Controller</div>
+        <div class="section-desc">جلب وإدارة إشعارات المستخدم — يتطلب مصادقة</div>
+      </div>
+    </div>
+
+    <!-- GetNotifications -->
+    <div class="endpoint-card" id="notif-get">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/Notification/<span class="param">{Id}</span></span>
+        <span class="endpoint-summary">جلب إشعارات المستخدم</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع جميع الإشعارات الخاصة بمستخدم معين مرتبطة بـ User ID. تشمل الإشعارات: قبول الطلبات، تحديثات الدفع، رسائل العروض، وغيرها. يتطلب مصادقة JWT صالحة.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'notifget-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'notifget-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="notifget-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">Id</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">GET /Notification/f3a1b2c4-...</div>
+        </div>
+        <div class="tab-content" id="notifget-res">
+          <div class="code-label">200 OK — List&lt;NotifDTO&gt;</div>
+          <div class="code-block">[{
+  <span class="json-key">"message"</span>: <span class="json-str">"Your order has been accepted and payment is held in escrow."</span>,
+  <span class="json-key">"date"</span>: <span class="json-str">"2026-03-27T10:30:00"</span>,
+  <span class="json-key">"userId"</span>: <span class="json-str">"user-guid"</span>,
+  <span class="json-key">"userName"</span>: <span class="json-str">"Yousef Ahmed"</span>,
+  <span class="json-key">"isRead"</span>: <span class="json-bool">false</span>
+}]</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">قائمة الإشعارات مع حالة القراءة لكل إشعار</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">لم يُعثر على إشعارات لهذا المستخدم</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MarkAsRead -->
+    <div class="endpoint-card" id="notif-read">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/Notification</span>
+        <span class="endpoint-summary">تعليم إشعار كمقروء</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُعيّن حالة إشعار معين إلى <strong>IsRead = true</strong> بواسطة ID الإشعار. يُرجع بيانات الإشعار المحدَّث. يتطلب مصادقة JWT صالحة.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'notifread-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'notifread-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="notifread-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">notifid</td><td>Query</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">PUT /Notification?notifid=42</div>
+        </div>
+        <div class="tab-content" id="notifread-res">
+          <div class="code-label">200 OK — NotifDTO</div>
+          <div class="code-block">{
+  <span class="json-key">"message"</span>: <span class="json-str">"Your order has been accepted..."</span>,
+  <span class="json-key">"date"</span>: <span class="json-str">"2026-03-27T10:30:00"</span>,
+  <span class="json-key">"userId"</span>: <span class="json-str">"user-guid"</span>,
+  <span class="json-key">"isRead"</span>: <span class="json-bool">true</span>
+}</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الإشعار عُلِّم كمقروء بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الإشعار غير موجود</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -1373,6 +1974,7 @@
     const card = header.parentElement;
     card.classList.toggle('open');
   }
+
   function switchTab(btn, targetId) {
     const card = btn.closest('.endpoint-body');
     card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1380,11 +1982,4 @@
     btn.classList.add('active');
     document.getElementById(targetId).classList.add('active');
   }
-  // Open first card in each section by default
-  document.querySelectorAll('.section').forEach(sec => {
-    const first = sec.querySelector('.endpoint-card');
-    if (first) first.classList.add('open');
-  });
 </script>
-</body>
-</html>
