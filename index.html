@@ -480,6 +480,7 @@
     <div class="nav-group-title">Wallet</div>
     <a class="nav-item" href="#wallet-get"><span class="method-badge GET">GET</span>Get Wallet</a>
     <a class="nav-item" href="#wallet-charge"><span class="method-badge PUT">PUT</span>Charge Wallet</a>
+    <a class="nav-item" href="#wallet-withdraw"><span class="method-badge PUT">PUT</span>Withdraw</a>
     <a class="nav-item" href="#wallet-callback"><span class="method-badge POST">POST</span>Paymob Callback</a>
   </div>
 
@@ -1432,7 +1433,6 @@
         <div class="tab-content" id="orderprov-res">
           <div class="code-label">200 OK — List&lt;OrderDTO&gt;</div>
           <div class="code-block">[{
-  <span class="json-key">"Id"</span>: <span class="json-num">1</span>,
   <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
   <span class="json-key">"offerId"</span>: <span class="json-num">3</span>,
   <span class="json-key">"totalAmount"</span>: <span class="json-num">500.00</span>,
@@ -1604,7 +1604,6 @@ Idempotency-Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890</div>
         <div class="tab-content" id="accept-res">
           <div class="code-label">200 OK — OrderDTO</div>
           <div class="code-block">{
-  <span class="json-key">"Id"</span>: <span class="json-num">1</span>,
   <span class="json-key">"jobPostId"</span>: <span class="json-num">10</span>,
   <span class="json-key">"offerId"</span>: <span class="json-num">3</span>,
   <span class="json-key">"totalAmount"</span>: <span class="json-num">500.00</span>,
@@ -1829,6 +1828,57 @@ Cancelled = 7</div>
       </div>
     </div>
 
+    <!-- Withdraw -->
+    <div class="endpoint-card" id="wallet-withdraw">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/Wallet/Withdraw</span>
+        <span class="endpoint-summary">سحب رصيد من المحفظة إلى رقم موبايل</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يسحب مبلغاً محدداً من محفظة المستخدم ويُحوّله إلى رقم موبايل. يتحقق من كفاية الرصيد قبل تنفيذ العملية. عند النجاح يُرسَل إشعار للمستخدم يؤكد السحب برقم الموبايل والمبلغ. يتطلب مصادقة JWT صالحة.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'withdraw-req')">Request Body</button>
+          <button class="tab-btn" onclick="switchTab(this, 'withdraw-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="withdraw-req">
+          <div class="code-label">Body · application/json</div>
+          <div class="code-block">{
+  <span class="json-key">"walletId"</span>: <span class="json-num">7</span>,
+  <span class="json-key">"amount"</span>: <span class="json-num">200.00</span>,
+  <span class="json-key">"mobileNumber"</span>: <span class="json-str">"01012345678"</span>
+}</div>
+          <table style="margin-top:14px">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+            <tr><td class="param-name">walletId</td><td class="param-type">int</td><td class="required-badge">required</td><td>ID المحفظة المراد السحب منها</td></tr>
+            <tr><td class="param-name">amount</td><td class="param-type">decimal</td><td class="required-badge">required</td><td>المبلغ بالجنيه المصري، يجب أن لا يتجاوز الرصيد الحالي</td></tr>
+            <tr><td class="param-name">mobileNumber</td><td class="param-type">string</td><td class="required-badge">required</td><td>رقم الموبايل المستلم للمبلغ</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="withdraw-res">
+          <div class="code-label">200 OK — WalletDTO</div>
+          <div class="code-block">{
+  <span class="json-key">"id"</span>: <span class="json-num">7</span>,
+  <span class="json-key">"name"</span>: <span class="json-str">"Yousef Ahmed"</span>,
+  <span class="json-key">"email"</span>: <span class="json-str">"yousef@example.com"</span>,
+  <span class="json-key">"balance"</span>: { <span class="json-key">"amount"</span>: <span class="json-num">1000.00</span>, <span class="json-key">"currency"</span>: <span class="json-str">"EGP"</span> },
+  <span class="json-key">"userId"</span>: <span class="json-str">"user-guid"</span>,
+  <span class="json-key">"ownerType"</span>: <span class="json-str">"Customer"</span>
+}</div>
+          <div class="note"><strong>Side Effect:</strong> يتلقى المستخدم إشعاراً فورياً بتفاصيل السحب — المبلغ ورقم الموبايل.</div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">السحب تم بنجاح — يُرجع بيانات المحفظة بعد خصم المبلغ</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">رصيد غير كافٍ أو خطأ في البيانات</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- PaymobCallback -->
     <div class="endpoint-card" id="wallet-callback">
       <div class="endpoint-header" onclick="toggle(this)">
@@ -1911,7 +1961,6 @@ Cancelled = 7</div>
         <div class="tab-content" id="notifget-res">
           <div class="code-label">200 OK — List&lt;NotifDTO&gt;</div>
           <div class="code-block">[{
-  <span class="json-key">"Id"</span>: <span class="json-num">1</span>,
   <span class="json-key">"message"</span>: <span class="json-str">"Your order has been accepted and payment is held in escrow."</span>,
   <span class="json-key">"date"</span>: <span class="json-str">"2026-03-27T10:30:00"</span>,
   <span class="json-key">"userId"</span>: <span class="json-str">"user-guid"</span>,
