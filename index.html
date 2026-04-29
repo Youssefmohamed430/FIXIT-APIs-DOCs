@@ -477,6 +477,23 @@
   </div>
 
   <div class="nav-group">
+    <div class="nav-group-title">Chat</div>
+    <a class="nav-item" href="#chat-get"><span class="method-badge GET">GET</span>Get Chats</a>
+    <a class="nav-item" href="#chat-create"><span class="method-badge POST">POST</span>Get Or Create</a>
+    <a class="nav-item" href="#chat-delete"><span class="method-badge DELETE">DELETE</span>Delete Chat</a>
+    <a class="nav-item" href="#chat-signalr"><span class="method-badge POST">WSS</span>SignalR Hub</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Provider Rating</div>
+    <a class="nav-item" href="#rating-get"><span class="method-badge GET">GET</span>Get Ratings</a>
+    <a class="nav-item" href="#rating-avg"><span class="method-badge GET">GET</span>Average Rates</a>
+    <a class="nav-item" href="#rating-add"><span class="method-badge POST">POST</span>Add Rating</a>
+    <a class="nav-item" href="#rating-update"><span class="method-badge PUT">PUT</span>Update Rating</a>
+    <a class="nav-item" href="#rating-delete"><span class="method-badge DELETE">DELETE</span>Delete Rating</a>
+  </div>
+
+  <div class="nav-group">
     <div class="nav-group-title">Wallet</div>
     <a class="nav-item" href="#wallet-get"><span class="method-badge GET">GET</span>Get Wallet</a>
     <a class="nav-item" href="#wallet-charge"><span class="method-badge PUT">PUT</span>Charge Wallet</a>
@@ -1211,7 +1228,7 @@
     <div class="endpoint-card" id="offer-byprovider">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag GET">GET</span>
-        <span class="endpoint-path">/Offer/ByProviderName/<span class="param">{name}</span></span>
+        <span class="endpoint-path">/Offer/ByProviderName/<span class="param">{name}</span>/<span class="param">{jobPostId}</span></span>
         <span class="endpoint-summary">جلب عروض بواسطة اسم المزوّد</span>
         <span class="auth-badge">🔒 Bearer</span>
         <span class="expand-btn">▼</span>
@@ -1234,7 +1251,7 @@
     <div class="endpoint-card" id="offer-bystatus">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag GET">GET</span>
-        <span class="endpoint-path">/Offer/ByStatus/<span class="param">{status}</span></span>
+        <span class="endpoint-path">/Offer/ByStatus/<span class="param">{status}</span>/<span class="param">{jobPostId}</span></span>
         <span class="endpoint-summary">جلب العروض حسب الحالة</span>
         <span class="auth-badge">🔒 Bearer</span>
         <span class="expand-btn">▼</span>
@@ -1247,10 +1264,11 @@
         <div class="tab-content active" id="offerstatus-req">
           <table>
             <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Values</th></tr>
-            <tr><td class="param-name">status</td><td>Path</td><td class="param-type">enum (string)</td><td>Pending, Accepted, Rejected</td></tr>
+            <tr><td class="param-name">status</td><td>Path</td><td class="param-type">enum (int)</td><td>1 = Pending, 2 = Accepted, 3 = Rejected</td></tr>
+            <tr><td class="param-name">jobPostId</td><td>Path</td><td class="param-type">int</td><td>ID المنشور</td></tr>
           </table>
           <div class="code-label">Example</div>
-          <div class="code-block">GET /Offer/ByStatus/Pending</div>
+          <div class="code-block">GET /Offer/ByStatus/1/42</div>
         </div>
       </div>
     </div>
@@ -1259,7 +1277,7 @@
     <div class="endpoint-card" id="offer-byprice">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag GET">GET</span>
-        <span class="endpoint-path">/Offer/ByPriceRange/<span class="param">{start}</span>/<span class="param">{end}</span></span>
+        <span class="endpoint-path">/Offer/ByPriceRange/<span class="param">{start}</span>/<span class="param">{end}</span>/<span class="param">{jobPostId}</span></span>
         <span class="endpoint-summary">جلب العروض ضمن نطاق سعري</span>
         <span class="auth-badge">🔒 Bearer</span>
         <span class="expand-btn">▼</span>
@@ -1274,9 +1292,10 @@
             <tr><th>Parameter</th><th>Location</th><th>Type</th></tr>
             <tr><td class="param-name">start</td><td>Path</td><td class="param-type">decimal</td></tr>
             <tr><td class="param-name">end</td><td>Path</td><td class="param-type">decimal</td></tr>
+            <tr><td class="param-name">jobPostId</td><td>Path</td><td class="param-type">int</td></tr>
           </table>
           <div class="code-label">Example</div>
-          <div class="code-block">GET /Offer/ByPriceRange/100/500</div>
+          <div class="code-block">GET /Offer/ByPriceRange/100/500/42</div>
         </div>
       </div>
     </div>
@@ -1742,7 +1761,7 @@ Cancelled = 7</div>
     <div class="endpoint-card" id="wallet-get">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag GET">GET</span>
-        <span class="endpoint-path">/Wallet/Id</span>
+        <span class="endpoint-path">/Wallet/<span class="param">{Id}</span></span>
         <span class="endpoint-summary">جلب بيانات المحفظة بواسطة User ID</span>
         <span class="auth-badge">🔒 Bearer</span>
         <span class="expand-btn">▼</span>
@@ -1758,10 +1777,10 @@ Cancelled = 7</div>
         <div class="tab-content active" id="walletget-req">
           <table>
             <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
-            <tr><td class="param-name">Id</td><td>Query</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">Id</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
           </table>
           <div class="code-label">Example</div>
-          <div class="code-block">GET /Wallet/Id?Id=f3a1b2c4-...</div>
+          <div class="code-block">GET /Wallet/f3a1b2c4-...</div>
         </div>
         <div class="tab-content" id="walletget-res">
           <div class="code-label">200 OK — WalletDTO</div>
@@ -1786,7 +1805,7 @@ Cancelled = 7</div>
     <div class="endpoint-card" id="wallet-charge">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag PUT">PUT</span>
-        <span class="endpoint-path">/Wallet/<span class="param">{amount}</span>/<span class="param">{Customerid}</span></span>
+        <span class="endpoint-path">/Wallet/<span class="param">{amount}</span>/<span class="param">{Customerid}</span>/<span class="param">{paymentWay}</span></span>
         <span class="endpoint-summary">شحن المحفظة عبر Paymob</span>
         <span class="expand-btn">▼</span>
       </div>
@@ -1803,9 +1822,13 @@ Cancelled = 7</div>
             <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
             <tr><td class="param-name">amount</td><td>Path</td><td class="param-type">double</td><td class="required-badge">required</td></tr>
             <tr><td class="param-name">Customerid</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">paymentWay</td><td>Path</td><td class="param-type">enum (int)</td><td class="required-badge">required</td></tr>
           </table>
+          <div class="note"><strong>paymentWay Values:</strong> <code>1</code> = Paymob, <code>2</code> = Fawaterak</div>
+          <div class="code-label">Headers</div>
+          <div class="code-block">Idempotency-Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890</div>
           <div class="code-label">Example</div>
-          <div class="code-block">PUT /Wallet/500/f3a1b2c4-...</div>
+          <div class="code-block">PUT /Wallet/500/f3a1b2c4-.../1</div>
           <div class="flow-box">
             <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">مصادقة مع Paymob → الحصول على Auth Token</div></div>
             <div class="flow-arrow">↓</div>
@@ -1980,7 +2003,7 @@ Cancelled = 7</div>
     <div class="endpoint-card" id="notif-read">
       <div class="endpoint-header" onclick="toggle(this)">
         <span class="method-tag PUT">PUT</span>
-        <span class="endpoint-path">/Notification</span>
+        <span class="endpoint-path">/Notification/MarkasRead/<span class="param">{notifid}</span></span>
         <span class="endpoint-summary">تعليم إشعار كمقروء</span>
         <span class="auth-badge">🔒 Bearer</span>
         <span class="expand-btn">▼</span>
@@ -1996,10 +2019,10 @@ Cancelled = 7</div>
         <div class="tab-content active" id="notifread-req">
           <table>
             <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
-            <tr><td class="param-name">notifid</td><td>Query</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+            <tr><td class="param-name">notifid</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
           </table>
           <div class="code-label">Example</div>
-          <div class="code-block">PUT /Notification?notifid=42</div>
+          <div class="code-block">PUT /Notification/MarkasRead/42</div>
         </div>
         <div class="tab-content" id="notifread-res">
           <div class="code-label">200 OK — NotifDTO</div>
@@ -2013,6 +2036,435 @@ Cancelled = 7</div>
             <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">الإشعار عُلِّم كمقروء بنجاح</span></div>
             <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">الإشعار غير موجود</span></div>
             <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── CHAT ─────────────────────── -->
+  <section class="section" id="chat">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <div>
+        <div class="section-title">Chat Controller</div>
+        <div class="section-desc">إدارة المحادثات والرسائل الفورية عبر SignalR — يتطلب مصادقة</div>
+      </div>
+    </div>
+
+    <!-- GetChats -->
+    <div class="endpoint-card" id="chat-get">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/Chat/<span class="param">{UserId}</span></span>
+        <span class="endpoint-summary">جلب المحادثات مع آخر رسالة</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع جميع المحادثات الخاصة بالمستخدم مع آخر رسالة فقط في كل محادثة. قائمة المشاركين لا تتضمن المستخدم نفسه.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'chatget-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'chatget-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="chatget-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">UserId</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="code-label">Example</div>
+          <div class="code-block">GET /Chat/f3a1b2c4-...</div>
+        </div>
+        <div class="tab-content" id="chatget-res">
+          <div class="code-label">200 OK — List&lt;ChatDTO&gt;</div>
+          <div class="code-block">[{
+  <span class="json-key">"id"</span>: <span class="json-num">5</span>,
+  <span class="json-key">"participants"</span>: [
+    { <span class="json-key">"userId"</span>: <span class="json-str">"other-user-guid"</span>, <span class="json-key">"name"</span>: <span class="json-str">"Ahmed Ali"</span> }
+  ],
+  <span class="json-key">"lastMessage"</span>: {
+    <span class="json-key">"message"</span>: <span class="json-str">"تمام، هنيجي بكرة"</span>,
+    <span class="json-key">"sentAt"</span>: <span class="json-str">"2026-03-27T15:30:00"</span>,
+    <span class="json-key">"isRead"</span>: <span class="json-bool">false</span>
+  }
+}]</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">قائمة المحادثات مع آخر رسالة</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GetOrCreateChat -->
+    <div class="endpoint-card" id="chat-create">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">POST</span>
+        <span class="endpoint-path">/Chat/GetOrCreateChat</span>
+        <span class="endpoint-summary">جلب أو إنشاء محادثة جديدة</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يجلب محادثة موجودة بين مستخدمين، أو يُنشئ واحدة جديدة إذا لم تكن موجودة. يُستخدَم كخطوة أولى قبل الاتصال بـ SignalR Hub.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'chatcreate-req')">Request Body</button>
+          <button class="tab-btn" onclick="switchTab(this, 'chatcreate-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="chatcreate-req">
+          <div class="code-label">Body · application/json</div>
+          <div class="code-block">{
+  <span class="json-key">"senderId"</span>: <span class="json-str">"user-guid-1"</span>,
+  <span class="json-key">"receiverId"</span>: <span class="json-str">"user-guid-2"</span>
+}</div>
+          <table style="margin-top:14px">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+            <tr><td class="param-name">senderId</td><td class="param-type">string</td><td class="required-badge">required</td><td>GUID المرسل</td></tr>
+            <tr><td class="param-name">receiverId</td><td class="param-type">string</td><td class="required-badge">required</td><td>GUID المستقبل</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="chatcreate-res">
+          <div class="code-label">200 OK — ChatDTO مع ChatId</div>
+          <div class="code-block">{
+  <span class="json-key">"id"</span>: <span class="json-num">5</span>,
+  <span class="json-key">"participants"</span>: [...]
+}</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">المحادثة موجودة أو أُنشئت بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">بيانات غير صحيحة</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DeleteChat -->
+    <div class="endpoint-card" id="chat-delete">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag DELETE">DELETE</span>
+        <span class="endpoint-path">/Chat/<span class="param">{chatId}</span></span>
+        <span class="endpoint-summary">حذف محادثة</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يحذف محادثة بواسطة الـ Chat ID. يتطلب مصادقة JWT صالحة.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'chatdelete-req')">Parameters</button>
+        </div>
+        <div class="tab-content active" id="chatdelete-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">chatId</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">المحادثة حُذِفت بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">المحادثة غير موجودة</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SignalR Hub -->
+    <div class="endpoint-card" id="chat-signalr">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">WSS</span>
+        <span class="endpoint-path">wss://fixit22.runasp.net/chatHub</span>
+        <span class="endpoint-summary">SignalR Hub — رسائل فورية</span>
+        <span class="auth-badge">🔒 Bearer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          Hub للرسائل الفورية عبر SignalR. يتيح إرسال واستقبال الرسائل في الوقت الفعلي. يتطلب اتصال WebSocket مع JWT في الـ Headers.
+        </div>
+
+        <div class="code-label">Server Methods (يمكن استدعاؤها من Client)</div>
+        <table>
+          <tr><th>Method</th><th>Parameter</th><th>Description</th></tr>
+          <tr><td class="param-name">SendMsg</td><td class="param-type">MessageDto object</td><td>يحفظ الرسالة ويبثها لكل المتصلين</td></tr>
+        </table>
+
+        <div class="code-label">Client Events (يستقبلها Flutter)</div>
+        <table>
+          <tr><th>Event</th><th>Data</th><th>Description</th></tr>
+          <tr><td class="param-name">ReceiveMessage</td><td class="param-type">MessageDto</td><td>تصل عند إرسال أي رسالة</td></tr>
+        </table>
+
+        <div class="code-label">MessageDto Structure</div>
+        <div class="code-block">{
+  <span class="json-key">"id"</span>: <span class="json-num">0</span>,
+  <span class="json-key">"chatId"</span>: <span class="json-num">5</span>,
+  <span class="json-key">"senderId"</span>: <span class="json-str">"string"</span>,
+  <span class="json-key">"senderName"</span>: <span class="json-str">"string"</span>,
+  <span class="json-key">"senderImage"</span>: <span class="json-str">"string or null"</span>,
+  <span class="json-key">"recieverId"</span>: <span class="json-str">"string or null"</span>,
+  <span class="json-key">"recieverName"</span>: <span class="json-str">"string or null"</span>,
+  <span class="json-key">"message"</span>: <span class="json-str">"string"</span>,
+  <span class="json-key">"isRead"</span>: <span class="json-bool">false</span>,
+  <span class="json-key">"sentAt"</span>: <span class="json-str">"datetime"</span>
+}</div>
+
+        <div class="code-label">Chat Flow — تسلسل العمليات</div>
+        <div class="flow-box">
+          <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">POST <strong>/Chat/GetOrCreateChat</strong> → تحصل على ChatId</div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">اتصل بـ Hub: <strong>wss://fixit22.runasp.net/chatHub</strong></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">استمع لـ <strong>"ReceiveMessage"</strong></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">أرسل رسائل عبر <strong>invoke("SendMsg", ...)</strong></div></div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">لعرض السجل القديم: <strong>GET /Chat/{userId}</strong></div></div>
+        </div>
+
+        <div class="code-label">Flutter Integration — signalr_netcore: ^1.3.5</div>
+        <div class="code-block">import 'package:signalr_netcore/signalr_client.dart';
+
+class ChatService {
+  late HubConnection _hubConnection;
+
+  Future&lt;void&gt; connect(String jwtToken) async {
+    _hubConnection = HubConnectionBuilder()
+        .withUrl(
+          "https://fixit22.runasp.net/chatHub",
+          options: HttpConnectionOptions(
+            headers: {"Authorization": "Bearer $jwtToken"},
+          ),
+        )
+        .withAutomaticReconnect()
+        .build();
+
+    // الاستماع للرسائل الواردة
+    _hubConnection.on("ReceiveMessage", (arguments) {
+      if (arguments != null &amp;&amp; arguments.isNotEmpty) {
+        final msgData = arguments[0] as Map&lt;String, dynamic&gt;;
+        print("رسالة جديدة: ${msgData['message']}");
+        print("من: ${msgData['senderName']}");
+        // حدّث الـ UI هنا
+      }
+    });
+
+    // الاتصال
+    await _hubConnection.start();
+    print("متصل بـ ChatHub ✅");
+  }
+
+  // إرسال رسالة
+  Future&lt;void&gt; sendMessage({
+    required int chatId,
+    required String senderId,
+    required String receiverId,
+    required String message,
+  }) async {
+    await _hubConnection.invoke("SendMsg", args: [
+      {
+        "ChatId": chatId,
+        "SenderId": senderId,
+        "RecieverId": receiverId,
+        "Message": message,
+      }
+    ]);
+  }
+
+  Future&lt;void&gt; disconnect() async {
+    await _hubConnection.stop();
+  }
+}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── PROVIDER RATING ─────────────────────── -->
+  <section class="section" id="rating">
+    <div class="section-header">
+      <div class="section-icon">⭐</div>
+      <div>
+        <div class="section-title">ProviderRating Controller</div>
+        <div class="section-desc">إدارة تقييمات مزودي الخدمة من قبل العملاء</div>
+      </div>
+    </div>
+
+    <!-- GetProviderRatings -->
+    <div class="endpoint-card" id="rating-get">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/ProviderRating/GetProviderRatings/<span class="param">{providerId}</span></span>
+        <span class="endpoint-summary">جلب تقييمات مزود خدمة</span>
+        <span class="auth-badge">🔒 Provider</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع جميع التقييمات الخاصة بمزود خدمة معين. مخصص لحساب Provider فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ratingget-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'ratingget-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="ratingget-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">providerId</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="ratingget-res">
+          <div class="code-label">200 OK — List&lt;RatingDTO&gt;</div>
+          <div class="code-block">[{
+  <span class="json-key">"id"</span>: <span class="json-num">1</span>,
+  <span class="json-key">"providerId"</span>: <span class="json-str">"provider-guid"</span>,
+  <span class="json-key">"customerID"</span>: <span class="json-str">"customer-guid"</span>,
+  <span class="json-key">"rate"</span>: <span class="json-num">4.5</span>,
+  <span class="json-key">"comment"</span>: <span class="json-str">"خدمة ممتازة"</span>
+}]</div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">قائمة التقييمات</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">المزود غير موجود</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GetAverageRates -->
+    <div class="endpoint-card" id="rating-avg">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag GET">GET</span>
+        <span class="endpoint-path">/ProviderRating/GetAverageRates/<span class="param">{providerId}</span></span>
+        <span class="endpoint-summary">جلب متوسط التقييم</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُرجع متوسط تقييم مزود الخدمة كرقم عشري. لا يتطلب مصادقة (AllowAnonymous).
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ratingavg-req')">Parameters</button>
+          <button class="tab-btn" onclick="switchTab(this, 'ratingavg-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="ratingavg-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">providerId</td><td>Path</td><td class="param-type">string (GUID)</td><td class="required-badge">required</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="ratingavg-res">
+          <div class="code-label">200 OK — decimal</div>
+          <div class="code-block"><span class="json-num">4.25</span></div>
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">متوسط التقييم كرقم عشري</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AddProviderRating -->
+    <div class="endpoint-card" id="rating-add">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag POST">POST</span>
+        <span class="endpoint-path">/ProviderRating/AddProviderRating</span>
+        <span class="endpoint-summary">إضافة تقييم لمزود خدمة</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُضيف تقييماً جديداً لمزود خدمة. التقييم من 1 إلى 5 بخطوات 0.5. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ratingadd-req')">Request Body</button>
+          <button class="tab-btn" onclick="switchTab(this, 'ratingadd-res')">Response</button>
+        </div>
+        <div class="tab-content active" id="ratingadd-req">
+          <div class="code-label">Body · application/json</div>
+          <div class="code-block">{
+  <span class="json-key">"providerId"</span>: <span class="json-str">"provider-guid"</span>,
+  <span class="json-key">"customerID"</span>: <span class="json-str">"customer-guid"</span>,
+  <span class="json-key">"rate"</span>: <span class="json-num">4.5</span>,
+  <span class="json-key">"comment"</span>: <span class="json-str">"خدمة ممتازة وسريعة"</span>
+}</div>
+          <table style="margin-top:14px">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Notes</th></tr>
+            <tr><td class="param-name">providerId</td><td class="param-type">string</td><td class="required-badge">required</td><td>GUID مزود الخدمة</td></tr>
+            <tr><td class="param-name">customerID</td><td class="param-type">string</td><td class="required-badge">required</td><td>GUID العميل</td></tr>
+            <tr><td class="param-name">rate</td><td class="param-type">decimal</td><td class="required-badge">required</td><td>1–5 بخطوات 0.5</td></tr>
+            <tr><td class="param-name">comment</td><td class="param-type">string</td><td class="required-badge">required</td><td>نص التعليق</td></tr>
+          </table>
+        </div>
+        <div class="tab-content" id="ratingadd-res">
+          <div class="response-row">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">التقييم أُضيف بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">بيانات غير صحيحة</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UpdateProviderRating -->
+    <div class="endpoint-card" id="rating-update">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag PUT">PUT</span>
+        <span class="endpoint-path">/ProviderRating/UpdateProviderRating/<span class="param">{id}</span></span>
+        <span class="endpoint-summary">تعديل تقييم موجود</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُعدّل تقييماً موجوداً بواسطة ID التقييم. يمكن تغيير الدرجة والتعليق. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ratingupdate-req')">Request</button>
+        </div>
+        <div class="tab-content active" id="ratingupdate-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th></tr>
+            <tr><td class="param-name">id</td><td>Path</td><td class="param-type">int</td></tr>
+          </table>
+          <div class="code-label">Body · application/json</div>
+          <div class="code-block">{
+  <span class="json-key">"rate"</span>: <span class="json-num">3.5</span>,
+  <span class="json-key">"comment"</span>: <span class="json-str">"تعليق محدّث"</span>
+}</div>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">التقييم حُدِّث بنجاح</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">التقييم غير موجود</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DeleteProviderRating -->
+    <div class="endpoint-card" id="rating-delete">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-tag DELETE">DELETE</span>
+        <span class="endpoint-path">/ProviderRating/DeleteProviderRating/<span class="param">{id}</span></span>
+        <span class="endpoint-summary">حذف ناعم لتقييم</span>
+        <span class="auth-badge">🔒 Customer</span>
+        <span class="expand-btn">▼</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-description">
+          يُنفّذ Soft Delete بتعيين <code>IsDeleted = true</code>. التقييم لا يُحذف فعلياً من قاعدة البيانات. مخصص لـ Customer فقط.
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'ratingdelete-req')">Parameters</button>
+        </div>
+        <div class="tab-content active" id="ratingdelete-req">
+          <table>
+            <tr><th>Parameter</th><th>Location</th><th>Type</th><th>Required</th></tr>
+            <tr><td class="param-name">id</td><td>Path</td><td class="param-type">int</td><td class="required-badge">required</td></tr>
+          </table>
+          <div class="response-row" style="margin-top:14px">
+            <div class="response-item"><span class="status-code s200">200</span><span class="response-desc">التقييم حُذِف ناعماً</span></div>
+            <div class="response-item"><span class="status-code s400">400</span><span class="response-desc">التقييم غير موجود</span></div>
+            <div class="response-item"><span class="status-code s401">401</span><span class="response-desc">غير مصادق أو الدور ليس Customer</span></div>
           </div>
         </div>
       </div>
@@ -2035,3 +2487,5 @@ Cancelled = 7</div>
     document.getElementById(targetId).classList.add('active');
   }
 </script>
+</body>
+</html>
